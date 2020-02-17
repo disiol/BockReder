@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.porularWordsButton.setOnClickListener(V -> {
             getCategories(instance);
+
         });
         binding.allWordsButton.setOnClickListener(V -> {
             selecteAllWords(instance);
@@ -34,18 +37,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getCategories(DatabaseAccess databaseAccess) {
-
+        binding.listOfWordsLinearLayout.removeAllViews();
 
         databaseAccess.open();
         List<String> categories = databaseAccess.getQuotes("categories", 2);
         List<String> categoriesEntryId = databaseAccess.getQuotes("categories", 0);
-        List<String> selectedBok = databaseAccess.getDataByEntryId(String.valueOf(categoriesEntryId), 0);
+        List<String> selectedBok = databaseAccess.getDataByEntryId( 0);
         databaseAccess.close();
 
         for (int index = 0; index < categories.size() - 1; index++) {
-            TextView textView = new TextView(this);
-            textView.setText(categories.get(index));
-            binding.listOfWordsLinearLayout.addView(textView);
+            Button button = new Button(this);
+            button.setText(categories.get(index));
+            binding.listOfWordsLinearLayout.addView(button);
         }
 
         //TODO abd to batons
@@ -53,16 +56,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void selecteAllWords(DatabaseAccess databaseAccess) {
+        binding.listOfWordsLinearLayout.removeAllViews();
+
         databaseAccess.open();
-        List<String> categories = databaseAccess.getQuotes("categories", 2);
-        List<String> categoriesEntryId = databaseAccess.getQuotes("categories", 1);
+        List<String> categories = databaseAccess.getQuotes("items", 2);
+        List<String> categoriesEntryId = databaseAccess.getQuotes("items", 1);
         List<String> selectedBok = databaseAccess.getDataByEntryId(String.valueOf(categoriesEntryId), 0);
         databaseAccess.close();
 
         for (int index = 0; index < categories.size() - 1; index++) {
-            TextView textView = new TextView(this);
-            textView.setText(categories.get(index));
-            binding.listOfWordsLinearLayout.addView(textView);
+            Button button = new Button(this);
+            button.setText(categories.get(index));
+            binding.listOfWordsLinearLayout.addView(button);
         }
 
     }
