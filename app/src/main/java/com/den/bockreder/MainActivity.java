@@ -56,8 +56,13 @@ public class MainActivity extends AppCompatActivity {
     private void addTitesOfBucs(DatabaseAccess databaseAccess, List<String> categories, List<String> categoriesEntryId, int index) {
         Button button = new Button(this);
         button.setText(categories.get(index));
-        selectedBok(databaseAccess, categoriesEntryId.toString());
+
         binding.listOfWordsLinearLayout.addView(button);
+
+        button.setOnClickListener(v ->{
+            selectedBok(databaseAccess, categoriesEntryId);
+
+        });
     }
 
 
@@ -75,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void selectedBok(DatabaseAccess databaseAccess, String entryId) {
+    private void selectedBok(DatabaseAccess databaseAccess, String title) {
         databaseAccess.open();
-        List<String> selectedBokTitle = databaseAccess.getDataByEntryId(2, entryId);
-        List<String> selectedBokText = databaseAccess.getDataByEntryId(3, entryId);
+        List<String> selectedBokTitle = databaseAccess.getDataByEntryId(2, title);
+        List<String> selectedBokText = databaseAccess.getDataByEntryId(3, title);
 
 
         Intent intent = new Intent(this, MainActivity.class);

@@ -73,11 +73,11 @@ public class DatabaseAccess {
         return list;
     }
 
-    public List<String> getDataByEntryId(int columnIndex, final String entryId) {
+    public List<String> getDataByEntryId(int columnIndex, final String title) {
         Log.d(LOG_TEG, "gameStart " + columnIndex);
 
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT title, description FROM items WHERE  entry_id = " + entryId, null);
+        Cursor cursor = database.rawQuery("SELECT title, description FROM items WHERE  title = " + title, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(columnIndex));
