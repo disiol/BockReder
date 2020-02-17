@@ -73,7 +73,7 @@ public class DatabaseAccess {
         return list;
     }
 
-    public List<String> getDataByEntryId(final String entryId, int columnIndex) {
+    public List<String> getDataByEntryId(int columnIndex, final String entryId) {
         Log.d(LOG_TEG, "gameStart " + columnIndex);
 
         List<String> list = new ArrayList<>();
