@@ -1,12 +1,15 @@
-package com.den.bockreder;
+package com.den.bockreder.databese;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.den.bockreder.constants.Constants.LOG_TEG;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
@@ -71,6 +74,8 @@ public class DatabaseAccess {
     }
 
     public List<String> getDataByEntryId(final String entryId, int columnIndex) {
+        Log.d(LOG_TEG, "gameStart " + columnIndex);
+
         List<String> list = new ArrayList<>();
         Cursor cursor = database.rawQuery("SELECT title, description FROM items WHERE  entry_id = " + entryId, null);
         cursor.moveToFirst();
