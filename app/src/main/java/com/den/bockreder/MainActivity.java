@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         binding.listOfWordsLinearLayout.addView(button);
 
         button.setOnClickListener(v ->{
-            selectedBok(databaseAccess, categoriesEntryId);
+            selectedBok(databaseAccess, categoriesEntryId.get(index));
 
         });
     }
