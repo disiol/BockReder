@@ -54,28 +54,28 @@ public class DatabaseAccess {
     /**
      * Read all quotes from the database.
      *
-     * @return a List of quotes
      * @param tableName
-     * @param columnName
+     * @param columnIndex
+     * @return a List of quotes
      */
-    public List<String> getQuotes(final String tableName, final String columnName) {
+    public List<String> getQuotes(final String tableName, int columnIndex) {
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT " + columnName + " FROM " + tableName, null);
+        Cursor cursor = database.rawQuery("SELECT   *  FROM " + tableName, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            list.add(cursor.getString(0));
+            list.add(cursor.getString(columnIndex));
             cursor.moveToNext();
         }
         cursor.close();
         return list;
     }
 
-    public List<String> getDataByEntryId(final String tableName, final String columnName) {
+    public List<String> getDataByEntryId(final String entryId, int columnIndex) {
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT " + columnName + " FROM " + tableName, null);
+        Cursor cursor = database.rawQuery("SELECT title, description FROM items WHERE  entry_id = " + entryId, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            list.add(cursor.getString(0));
+            list.add(cursor.getString(columnIndex));
             cursor.moveToNext();
         }
         cursor.close();

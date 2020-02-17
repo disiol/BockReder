@@ -17,13 +17,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.listView = (ListView) findViewById(R.id.listView);
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+    }
+
+    private void getCategories(DatabaseAccess databaseAccess) {
         databaseAccess.open();
-        List<String> quotes = databaseAccess.getQuotes("items", "title");
+        List<String> categories = databaseAccess.getQuotes("categories", 2);
+        List<String> categoriesEntryId = databaseAccess.getQuotes("categories", 1);
+
+        List<String> selectedBok = databaseAccess.getDataByEntryId("8", 2);
+        databaseAccess.close();
+    }
+
+    private void selectedBok(DatabaseAccess databaseAccess, String entryId) {
+        databaseAccess.open();
+        List<String> selectedBokTitle = databaseAccess.getDataByEntryId(entryId, 3);
+        List<String> selectedBokText = databaseAccess.getDataByEntryId(entryId, 4);
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, quotes);
-        this.listView.setAdapter(adapter);
     }
 }
