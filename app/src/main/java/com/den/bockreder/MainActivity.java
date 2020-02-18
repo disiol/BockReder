@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.den.bockreder.databese.DatabaseAccess;
 import com.den.bockreder.databinding.ActivityMainBinding;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,26 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         databaseAccess.open();
         List<String> categories = databaseAccess.getQuotes("categories", 2);
-        List<String> categoriesEntryId = databaseAccess.getQuotes("categories", 0);
+        List<String> text = databaseAccess.getQuotes("categories", 3);
         databaseAccess.close();
 
         for (int index = 0; index < categories.size() - 1; index++) {
-            addTitesOfBucs(databaseAccess, categories, categoriesEntryId, index);
+            addTitesOfBucs(databaseAccess, categories, text, index);
         }
 
         //TODO abd to batons
-    }
-
-    private void addTitesOfBucs(DatabaseAccess databaseAccess, List<String> categories, List<String> categoriesEntryId, int index) {
-        Button button = new Button(this);
-        button.setText(categories.get(index));
-
-        binding.listOfWordsLinearLayout.addView(button);
-
-        button.setOnClickListener(v ->{
-            selectedBok(databaseAccess, categoriesEntryId.get(index));
-
-        });
     }
 
 
@@ -71,30 +60,41 @@ public class MainActivity extends AppCompatActivity {
 
         databaseAccess.open();
         List<String> categories = databaseAccess.getQuotes("items", 2);
-        List<String> categoriesEntryId = databaseAccess.getQuotes("items", 1);
+        List<String> text = databaseAccess.getQuotes("items", 3);
         databaseAccess.close();
 
         for (int index = 0; index < categories.size() - 1; index++) {
-            addTitesOfBucs(databaseAccess, categories, categoriesEntryId, index);
+            addTitesOfBucs(databaseAccess, categories, text, index);
         }
 
     }
 
-    private void selectedBok(DatabaseAccess databaseAccess, String title) {
-        databaseAccess.open();
-        List<String> selectedBokTitle = databaseAccess.getDataByEntryId(3, title);
-        List<String> selectedBokText = databaseAccess.getDataByEntryId(4, title);
-        databaseAccess.close();
 
-        openBok(selectedBokTitle, selectedBokText);
+    private void addTitesOfBucs(DatabaseAccess databaseAccess, List<String> categories, List<String> text, int index) {
+        Button button = new Button(this);
+        String title = categories.get(index);
+        button.setText(title);
+
+        binding.listOfWordsLinearLayout.addView(button);
+
+        button.setOnClickListener(v -> {
+            selectedBok(databaseAccess, title, text.get(index));
+
+        });
+    }
+
+
+    private void selectedBok(DatabaseAccess databaseAccess, String title, String text) {
+
+        openBok(title, text);
 
 
     }
 
-    private void openBok(List<String> selectedBokTitle, List<String> selectedBokText) {
+    private void openBok(String title, String text) {
         Intent intent = new Intent(this, BockActivity.class);
-        intent.putExtra(SELECTED_BOK_TITLE, selectedBokTitle.toString());
-        intent.putExtra(SELECTED_BOK_TEXT, selectedBokText.toString());
+        intent.putExtra(SELECTED_BOK_TITLE,title);
+        intent.putExtra(SELECTED_BOK_TEXT, text);
         startActivity(intent);
     }
 }
