@@ -82,17 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectedBok(DatabaseAccess databaseAccess, String title) {
         databaseAccess.open();
-        List<String> selectedBokTitle = databaseAccess.getDataByEntryId(2, title);
-        List<String> selectedBokText = databaseAccess.getDataByEntryId(3, title);
+        List<String> selectedBokTitle = databaseAccess.getDataByEntryId(3, title);
+        List<String> selectedBokText = databaseAccess.getDataByEntryId(4, title);
+        databaseAccess.close();
+
+        openBok(selectedBokTitle, selectedBokText);
 
 
-        Intent intent = new Intent(this, MainActivity.class);
+    }
+
+    private void openBok(List<String> selectedBokTitle, List<String> selectedBokText) {
+        Intent intent = new Intent(this, BockActivity.class);
         intent.putExtra(SELECTED_BOK_TITLE, selectedBokTitle.toString());
         intent.putExtra(SELECTED_BOK_TEXT, selectedBokText.toString());
         startActivity(intent);
-        finish();
-
-        databaseAccess.close();
-
     }
 }

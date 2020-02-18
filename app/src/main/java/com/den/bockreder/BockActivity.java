@@ -19,12 +19,11 @@ public class BockActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bock_ativity);
+        binding = DataBindingUtil.setContentView(this, R.layout.bock_ativity);
 
         Intent intent = getIntent();
         title = intent.getStringExtra(SELECTED_BOK_TITLE);
         text = intent.getStringExtra(SELECTED_BOK_TEXT);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
          binding.titleTextView.setText(title);
          binding.textView.setText(text);
