@@ -86,4 +86,6 @@ public class DatabaseAccess {
         cursor.close();
         return list;
     }
+
+    //TODO запись новый сканов икартинок в scins обновить сколичество в sqlite_sequence
 }
